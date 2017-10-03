@@ -28,8 +28,9 @@ export class PessoasPesquisaComponent implements OnInit {
   ngOnInit() {
   }
 
-  click() {
+  click(form) {
     console.log(this.c);
+    form.reset({nome: 'asd'});
   }
 
 }

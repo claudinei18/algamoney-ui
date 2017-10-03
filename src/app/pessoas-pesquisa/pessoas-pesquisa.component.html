@@ -36,8 +36,8 @@
     </div>
   </div>
 
-  <form #usuarioForm="ngForm" (submit)="click()">
-    <div class="form-group">
+  <form #usuarioForm="ngForm" (submit)="click(usuarioForm)">
+    <div class="form-group" [class.has-danger]="nomeInput.invalid && nomeInput.touched">
       <label class="form-control-label">Profissão</label>
       <select class="form-control"
               name="profissao"
