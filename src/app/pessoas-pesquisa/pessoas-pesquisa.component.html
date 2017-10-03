@@ -1,0 +1,64 @@
+<div class="container">
+  <div class="ui-g">
+    <div class="ui-g-12">
+      <h1>Pessoas {{c | json}}</h1>
+    </div>
+
+    <div class="ui-g-12 ui-fluid">
+      <label>Nome</label>
+      <input type="text" pInputText>
+    </div>
+
+    <div class="ui-g-12">
+      <button pButton type="submit" label="Pesquisar"></button>
+    </div>
+  </div>
+
+  <div class="ui-g">
+    <div class="ui-g-12">
+      <p-dataTable [value]="pessoas" [paginator]="true" [rows]="2" [responsive]="true">
+        <p-column field="nome" header="Nome"></p-column>
+        <p-column field="cidade" header="Cidade"></p-column>
+        <p-column field="estado" header="Estado"></p-column>
+        <p-column header="Status" styleClass="col-acoes">
+          <ng-template let-pess="rowData" pTemplate="body">
+            <a href="#" *ngIf=" pess.ativo" pTooltip="Desativar" tooltipPosition="top">Ativo</a>
+            <a href="#" *ngIf="!pess.ativo" pTooltip="Ativar" tooltipPosition="top">Inativo</a>
+          </ng-template>
+        </p-column>
+        <p-column styleClass="col-acoes">
+          <ng-template pTemplate="body">
+            <a pButton icon="fa fa-pencil" pTooltip="Editar" tooltipPosition="top"></a>
+            <button pButton icon="fa fa-trash" pTooltip="Excluir" tooltipPosition="top"></button>
+          </ng-template>
+        </p-column>
+      </p-dataTable>
+    </div>
+  </div>
+
+  <form #usuarioForm="ngForm" (submit)="click()">
+    <div class="form-group">
+      <label class="form-control-label">Profissão</label>
+      <select class="form-control"
+              name="profissao"
+              [(ngModel)]="c.profissao">
+        <option value="">Selecione</option>
+        <option *ngFor="let p of profissoes"
+                [value]="p.nome">{{p.nome}}
+        </option>
+      </select>
+    </div>
+
+    <label>Nome:</label>
+    <input required #nomeInput="ngModel" type="text" name="nome" [(ngModel)]="nome" minlength="10">
+
+    <div *ngIf="nomeInput.hasError('required')">Informe um nome!</div>
+    <div *ngIf="nomeInput.hasError('minlength')">O nome deve conter pelo menos 10 caracteres!</div>
+
+    <button pButton label="Teste" type="submit"></button>
+  </form>
+
+  <div class="ui-g-12">
+    <a pButton label="Nova Pessoa" (click)="click()"></a>
+  </div>
+</div>
